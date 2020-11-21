@@ -490,7 +490,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Spinner
-                android:id="@+id/spnLevel"
+                android:id="@+id/spnLevelList"
                 style="@style/yellowButton"
                 android:spinnerMode="dropdown"
                 android:layout_width="0dp"
@@ -570,7 +570,7 @@
                 app:layout_constraintGuide_percent="0.980226" />
 
             <TextView
-                android:id="@+id/txtCurrentLevel"
+                android:id="@+id/currentLevel"
                 style="@style/txtStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,26 +1,38 @@
 package com.will.downsyndromeui;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class User {
 
-    String username, email, password,
-            name, surname,  parent;
-    int level, levelXP, age;
+    private String username, email, name, surname,  parent, currentUser, key;
+    private int level, levelXP, age;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference("users");
 
     public User(){
 
     }
 
-    public User(String username, String email, String password, String name, String surname,
-                int age, String parent, int level, int levelXP) {
+    public User(int age, String email, int level, int levelXP, String name, String parent,
+                String surname, String username, String key) {
         this.username = username;
         this.email = email;
-        this.password = password;
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.parent = parent;
         this.level = level;
         this.levelXP = levelXP;
+        this.key = key;
     }
 
     public String getUsername() {
@@ -37,14 +49,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {
@@ -94,4 +98,9 @@ public class User {
     public void setLevelXP(int levelXP) {
         this.levelXP = levelXP;
     }
+
+    public String getKey(){return key;}
+
+    public void setKey(String key){this.key = key;}
+
 }

@@ -25,9 +25,9 @@ public class Register extends AppCompatActivity {
     Button cancel, register;
     EditText txtUsername, txtEmail, txtParentN, txtParentS, txtName, txtSurname,
             txtPassword, txtConfirm, txtAge;
-    String name, surname, username, parentN, parentS, email, password, confirm;
+    String name, surname, username, parentN, parentS, email, password, confirm, uploadID;
     int age = 0;
-    boolean isNumber = true;
+    boolean isNumber = true, remember = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class Register extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("user");
+        final DatabaseReference myRef = database.getReference("users");
 
         cancel = findViewById(R.id.btnCancel);
         register = findViewById(R.id.btnRegister);
@@ -68,8 +68,6 @@ public class Register extends AppCompatActivity {
                 password = txtPassword.getText().toString().trim();
                 confirm = txtConfirm.getText().toString().trim();
 
-                Toast.makeText(Register.this, name+" "+surname+" "+username+" "+age+" "+email+" "+
-                        parentN+" "+parentS+" "+password+" "+confirm+" "+isNumber, Toast.LENGTH_SHORT).show();
                 if((isNumber == true && age > 0)){
                     if(password.equals(confirm)){
                         mAuth.createUserWithEmailAndPassword(email, password)
@@ -79,9 +77,9 @@ public class Register extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(Register.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                                             // Sign in success, update UI with the signed-in user's information
-                                            User newUser = new User(username, email, password, name, surname,
-                                            age, parentN+" "+parentS, 1, 0);
-                                            myRef.setValue(newUser);
+                                            uploadID = myRef.push().getKey();
+                                            User newUser = new User(age, email, 1, 0, name, parentN+" "+parentS, surname, username, uploadID);
+                                            myRef.child(uploadID).setValue(newUser);
 
                                             Intent intent = new Intent(Register.this, Dashboard.class);
                                             intent.putExtra("child name", username);

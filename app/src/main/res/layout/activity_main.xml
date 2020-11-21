@@ -30,6 +30,15 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
+    <ProgressBar
+        android:id="@+id/progsLogin"
+        android:layout_width="26dp"
+        android:layout_height="29dp"
+        app:layout_constraintBottom_toTopOf="@+id/Login"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/RemeberPass" />
     <Button
         android:id="@+id/Login"
         style="@style/yellowButton"
@@ -39,6 +48,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/yellow_button_dark"
         android:elevation="20dp"
         android:fontFamily="@font/montserrat_alternates"

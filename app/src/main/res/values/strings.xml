@@ -7,7 +7,7 @@
     <!--lOGIN SCREEN -->
     <string name="login" translatable="false">Login</string>
     <string name="register" translatable="false">Register</string>
-    <string name="username" translatable="false">Username</string>
+    <string name="username" translatable="false">Email</string>
     <string name="password" translatable="false">Password</string>
     <string name="remeberme" translatable="false">Remember me</string>
 
@@ -64,5 +64,12 @@
     <string name="settingminus" translatable="false">-</string>
     <!-- Change User Dialog-->
     <string name="pickalang">Pick a language</string>
+
+    <string-array name="holder_array">
+        <item>Please Select an Action</item>
+        <item>Storyboard</item>
+        <item>Puzzles</item>
+        <item>Sentences / Words</item>
+    </string-array>
 
 </resources>

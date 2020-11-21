@@ -1,16 +1,21 @@
 package com.will.downsyndromeui;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +30,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+
+import Admin.MainActivityAdmin;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,18 +46,22 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference myRef = database.getReference("users");
     Button login, signUp ;
     EditText txtUsername, txtPassword;
-    String username, password;
-    ArrayList<User> users = new ArrayList<>();
+    String password, email;
+    CheckBox chkRemember;
+    ProgressBar progressBar;
+    boolean check = false, rem = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        FetchUsers();
 
         txtUsername = findViewById(R.id.edtUsername);
         txtPassword = findViewById(R.id.edtPassword);
+        chkRemember = findViewById(R.id.RemeberPass);
+        progressBar = findViewById(R.id.progsLogin);
+        progressBar.setVisibility(View.INVISIBLE);
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -52,6 +69,24 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER,
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER);
 
+        chkRemember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    SharedPreferences preferences = getSharedPreferences("remember", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "true");
+                    editor.apply();
+                }else{
+                    SharedPreferences preferences = getSharedPreferences("remember", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putString("remember", "false");
+                    editor.apply();
+                }
+
+
+            }
+        });
 
         signUp = findViewById(R.id.Register);
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -64,65 +99,51 @@ public class MainActivity extends AppCompatActivity {
 
 
          login  = findViewById(R.id.Login);
-
          login.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                username = txtUsername.getText().toString().trim();
+                email = txtUsername.getText().toString().trim();
                 password = txtPassword.getText().toString().trim();
-                if(!username.isEmpty() && !password.isEmpty()){
-                    int pos = 0;
-                    while(pos < users.size()){
-                        if(users.get(pos).username.equals(username)){
-                            String email = users.get(pos).email;
+
+                if(!email.isEmpty() && !password.isEmpty()){
+                    progressBar.setVisibility(View.VISIBLE);
                             mAuth.signInWithEmailAndPassword(email, password)
                                     .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                                         @Override
                                         public void onComplete(@NonNull Task<AuthResult> task) {
                                             if (task.isSuccessful()) {
                                                 // Sign in success, update UI with the signed-in user's information
-                                                FirebaseUser user = mAuth.getCurrentUser();
-                                                Intent a = new Intent(MainActivity.this , Dashboard.class);
-                                                a.putExtra("child name", username);
-                                                startActivity(a);
+                                                if(email.equalsIgnoreCase("18000762@vcconnect.co.za")){
+                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    Intent a = new Intent(MainActivity.this , MainActivityAdmin.class);
+                                                    startActivity(a);
+                                                }else{
+                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    Intent a = new Intent(MainActivity.this , Dashboard.class);
+                                                    startActivity(a);
+                                                }
                                             }else{
-                                                Toast.makeText(MainActivity.this, "Authentication Failed!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MainActivity.this, "Oops, something went wrong! Please try again", Toast.LENGTH_SHORT).show();
+                                                progressBar.setVisibility(View.INVISIBLE);
                                             }
                                             // ...
                                         }
                                     });
-                        }
-                    }
+                            return;
+                }else{
+                    Toast.makeText(MainActivity.this, "Please enter all details!", Toast.LENGTH_SHORT).show();
                 }
-
-
              }
          });
-    }
-
-    public void FetchUsers(){
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    users.add(dataSnapshot.getValue(User.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MainActivity.this, "Could not retrieve users", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        //check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null)
-        {
+        SharedPreferences preferences = getSharedPreferences("remember", MODE_PRIVATE);
+        String start = preferences.getString("remember", "");
+        if(start.equals("true") && (mAuth.getCurrentUser() != null)){
+
             Intent intent = new Intent(MainActivity.this, Dashboard.class);
             startActivity(intent);
         }

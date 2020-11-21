@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "861723696806",
-    "firebase_url": "https://empowert21.firebaseio.com",
-    "project_id": "empowert21",
-    "storage_bucket": "empowert21.appspot.com"
+    "project_number": "438253642170",
+    "firebase_url": "https://empowert21-a89d4.firebaseio.com",
+    "project_id": "empowert21-a89d4",
+    "storage_bucket": "empowert21-a89d4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:861723696806:android:af14bc0b9efb667ba0de67",
+        "mobilesdk_app_id": "1:438253642170:android:73f82e4b76b6b2b9f47d83",
         "android_client_info": {
           "package_name": "com.will.downsyndromeui"
         }
       },
       "oauth_client": [
         {
-          "client_id": "861723696806-a8ea0dvbv7768v4v3mejjvelml9ooc07.apps.googleusercontent.com",
+          "client_id": "438253642170-6injnbto4fuom4lumkk7a7no9994lcde.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBtRTkOCDSIiYyMoRWAW07bNcQVdgF6J_E"
+          "current_key": "AIzaSyBoeFvWw7hhyINi-5kWdN5qPZafSFOwpBE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "861723696806-a8ea0dvbv7768v4v3mejjvelml9ooc07.apps.googleusercontent.com",
+              "client_id": "438253642170-6injnbto4fuom4lumkk7a7no9994lcde.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
