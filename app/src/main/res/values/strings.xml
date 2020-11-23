@@ -68,8 +68,31 @@
     <string-array name="holder_array">
         <item>Please Select an Action</item>
         <item>Storyboard</item>
-        <item>Puzzles</item>
-        <item>Sentences / Words</item>
+        <item>Flashcards/Puzzles</item>
+        <item>Sentences</item>
     </string-array>
+
+    <string-array name="categories">
+        <item>Category</item>
+        <item>Numbers</item>
+        <item>Animals</item>
+        <item>Words</item>
+        <item>Colours and Shapes</item>
+    </string-array>
+
+    <string-array name="levels">
+        <item>Level</item>
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>Level 3</item>
+        <item>Level 4</item>
+        <item>Level 5</item>
+    </string-array>
+    <string name="title_activity_gallery">Gallery</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 
 </resources>

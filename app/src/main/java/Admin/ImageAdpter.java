@@ -13,7 +13,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.squareup.picasso.Picasso;
+import com.will.downsyndromeui.Gallery;
 import com.will.downsyndromeui.R;
 
 import java.util.List;
@@ -22,23 +25,37 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
         private Context mContext;
         private List<Upload> mUploads;
         private OnItemClickListener mListener;
+        private View v;
+
         public ImageAdpter(Context context, List<Upload> uploads){
             mContext= context;
             mUploads=uploads;
         }
+
     @NonNull
     @Override
     public ImageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if(mContext.getClass().equals(Gallery.class)){
+            v = LayoutInflater.from(mContext).inflate(R.layout.gallery_item,parent,false);
+        }else{
+            v = LayoutInflater.from(mContext).inflate(R.layout.image_item,parent,false);
+        }
 
-        View v = LayoutInflater.from(mContext).inflate(R.layout.image_item,parent,false);
         return new ImageHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ImageHolder holder, int position) {
         Upload uploadCurrent= mUploads.get(position);
-        holder.textViewName.setText(uploadCurrent.getName());
-        Picasso.get().load(uploadCurrent.getImageUrl()).into(holder.imageView);
+
+        if(!mContext.getClass().equals(Gallery.class)){
+            holder.textViewName.setText(uploadCurrent.getName());
+        }
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.ic_launcher_background); //Sets a placeholder image until the image has loaded
+        //Using Glide to load the images into the cards
+        Glide.with(mContext).load(uploadCurrent.getImageUrl()).apply(requestOptions).into(holder.imageView);
+
     }
 
     @Override
@@ -54,10 +71,17 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
 
-            textViewName= itemView.findViewById(R.id.text);
-            imageView= itemView.findViewById(R.id.workpls);
-            itemView.setOnClickListener(this);
-            itemView.setOnCreateContextMenuListener(this);
+            if(!mContext.getClass().equals(Gallery.class)){
+                textViewName= itemView.findViewById(R.id.text);
+                imageView= itemView.findViewById(R.id.workpls);
+                itemView.setOnClickListener(this);
+                itemView.setOnCreateContextMenuListener(this);
+            }else{
+                imageView= itemView.findViewById(R.id.imgView);
+                itemView.setOnClickListener(this);
+                itemView.setOnCreateContextMenuListener(this);
+            }
+
         }
 
         @Override
@@ -72,9 +96,9 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-            menu.setHeaderTitle("select Action");
-            MenuItem doWhatever = menu.add(Menu.NONE,1,1,"do what ever");
-            MenuItem delete = menu.add(Menu.NONE,2,2,"delete");
+            menu.setHeaderTitle("Select an Action");
+            MenuItem doWhatever = menu.add(Menu.NONE,1,1,"View");
+            MenuItem delete = menu.add(Menu.NONE,2,2,"Delete");
             doWhatever.setOnMenuItemClickListener(this);
             delete.setOnMenuItemClickListener(this);
         }

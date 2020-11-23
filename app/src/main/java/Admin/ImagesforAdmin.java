@@ -41,23 +41,23 @@ public class ImagesforAdmin  extends AppCompatActivity implements ImageAdpter.On
 
         mUploads= new ArrayList<>();
         mStorage=FirebaseStorage.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploadsForAdmin");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("flashcards");
         mAdapter= new ImageAdpter(ImagesforAdmin.this,mUploads);
         mAdapter.setOnItemClickListener(ImagesforAdmin.this);
-        mRecyclerView.setAdapter(mAdapter);
+
         mDBListener=mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 mUploads.clear();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()){
-
                     Upload upload = postSnapshot.getValue(Upload.class);
                     upload.setMkey(postSnapshot.getKey());
                     Log.i(TAG, "onDataChange: works" +upload.getName());
                     mUploads.add(upload);
                 }
 
+                mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
 
 

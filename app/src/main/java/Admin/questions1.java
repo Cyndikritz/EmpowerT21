@@ -37,30 +37,24 @@ public class questions1 extends AppCompatActivity implements QuestionAdpter.OnIt
         mAdapter= new QuestionAdpter(questions1.this,mUploads);
         mAdapter.setOnItemClickListener(questions1.this);
         mRecyclerView.setAdapter(mAdapter);
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploadsForTest");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("sentences");
         mDBListener=mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mUploads.clear();
                 for (DataSnapshot postSnapshot : snapshot.getChildren()){
                     if (postSnapshot==null) {
-                        Toast.makeText(questions1.this, "there is no test", Toast.LENGTH_SHORT).show();
-                    }
-
-                        else{
+                        Toast.makeText(questions1.this, "There are no available sentences.", Toast.LENGTH_SHORT).show();
+                    }else{
                     TestClass upload = postSnapshot.getValue(TestClass.class);
                     upload.setMkey(postSnapshot.getKey());
                     mUploads.add(upload);
                 }
                 }
-
                 mAdapter.notifyDataSetChanged();
-
-
                 if (mAdapter == null){
-                    Toast.makeText(questions1.this, "no images added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(questions1.this, "No sentences added.", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -86,7 +80,7 @@ public class questions1 extends AppCompatActivity implements QuestionAdpter.OnIt
         final String selectedkEY= selectedItem.getMkey();
 
                 mDatabaseRef.child(selectedkEY).removeValue();
-                Toast.makeText(questions1.this, "question deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(questions1.this, "Sentence deleted.", Toast.LENGTH_SHORT).show();
 
     }
 }

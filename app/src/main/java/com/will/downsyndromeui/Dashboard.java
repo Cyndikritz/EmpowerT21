@@ -36,11 +36,12 @@ import static android.R.layout.simple_spinner_dropdown_item;
 public class Dashboard extends AppCompatActivity {
 
     private User currentStudent = new User();
-    String welcomeMessage = "Welcome ";
+    String welcomeMessage = "Welcome ", username;
+    int level, XP;
     TextView welcome, txtCurrentLevel;
-    Spinner level;
+    Spinner spnLevel;
     ImageView colorAndShape, animals, words, puzzle, numbers, pronouns, social, sentences;
-    Button logout, settings;
+    Button logout, settings, gallery;
     ProgressBar progressBar;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
@@ -54,9 +55,10 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         mAuth = FirebaseAuth.getInstance();
-        level = findViewById(R.id.spnLevelList);
+        spnLevel = findViewById(R.id.spnLevelList);
         logout = findViewById(R.id.btnLogout);
         settings = findViewById(R.id.btnSettings);
+        gallery = findViewById(R.id.btnGallery);
         welcome = findViewById(R.id.txtWelcome);
         txtCurrentLevel = findViewById(R.id.currentLevel);
         progressBar = findViewById(R.id.progressBar);
@@ -67,33 +69,29 @@ public class Dashboard extends AppCompatActivity {
         numbers = findViewById(R.id.imgNumbers);
         pronouns = findViewById(R.id.imgPronouns);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
+        username = userDetails.getString("username", "");
+        level = userDetails.getInt("level",1);
+        XP = userDetails.getInt("XP", 0);
+
+        welcomeMessage = welcomeMessage+username;
+        welcome.setText(welcomeMessage);
+
+        txtCurrentLevel.setText(level+"");
+        progressBar.setProgress(currentStudent.getLevelXP());
+        PopulateLevelList();
+
+        arrayAdapter = new ArrayAdapter<String>(Dashboard.this, simple_spinner_dropdown_item, levels);
+        arrayAdapter.setDropDownViewResource(simple_spinner_dropdown_item);
+        spnLevel.setAdapter(arrayAdapter);
+
+        gallery.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Iterable<DataSnapshot> children = snapshot.getChildren();
-                for(DataSnapshot child:children){
-                    User pulledUser = child.getValue(User.class);
-                    if(pulledUser.getEmail().equalsIgnoreCase(currentUser.getEmail())){
-                        currentStudent = pulledUser;
-                        welcomeMessage = welcomeMessage+pulledUser.getUsername();
-                        welcome.setText(welcomeMessage);
-
-                        PopulateLevelDetails();
-                        arrayAdapter = new ArrayAdapter<String>(Dashboard.this, simple_spinner_dropdown_item, levels);
-                        arrayAdapter.setDropDownViewResource(simple_spinner_dropdown_item);
-                        level.setAdapter(arrayAdapter);
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, Gallery.class);
+                startActivity(intent);
             }
         });
-
-
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +100,13 @@ public class Dashboard extends AppCompatActivity {
                 SharedPreferences preferences = getSharedPreferences("remember", MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("remember", "false");
+                editor.apply();
+
+                SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = userDetails.edit();
+                editor.putString("username", "");
+                editor.putInt("level", 1);
+                editor.putInt("XP", 0);
                 editor.apply();
                 Intent intent = new Intent(Dashboard.this, MainActivity.class);
                 startActivity(intent);
@@ -170,20 +175,43 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
-    public void PopulateLevelDetails(){
-        int currentLevel = currentStudent.getLevel();
-        for(int i=1; i<= currentLevel; i++){
+    public void PopulateLevelList(){
+        for(int i=1; i<= level; i++){
             levels.add("Level "+i);
         }
-
-        txtCurrentLevel.setText(currentLevel+"");
-        progressBar.setProgress(currentStudent.getLevelXP());
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         currentUser = mAuth.getCurrentUser();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterable<DataSnapshot> children = snapshot.getChildren();
+                for(DataSnapshot child:children){
+                    User pulledUser = child.getValue(User.class);
+                    if(pulledUser.getEmail().equalsIgnoreCase(mAuth.getCurrentUser().getEmail())){
+                        SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = userDetails.edit();
+                        editor.putString("username", pulledUser.getUsername());
+                        editor.putInt("level", pulledUser.getLevel());
+                        editor.putInt("XP", pulledUser.getLevelXP());
+                        editor.apply();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed(){
+
     }
 }

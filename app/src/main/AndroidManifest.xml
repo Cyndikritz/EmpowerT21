@@ -9,20 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Sentences"></activity>
+        <activity android:name=".UploadGalleryImage"></activity>
+
+        <activity
+            android:name=".Gallery"
+            android:label="@string/title_activity_gallery" />
+        <activity android:name=".Sentences" />
         <activity android:name=".NumberFlashcard" />
         <activity android:name=".Settings" />
         <activity android:name=".FlashCard" />
         <activity android:name=".Dashboard" />
         <activity android:name=".Register" />
-        <activity android:name="Admin.MainActivityAdmin"/>
+        <activity android:name="Admin.MainActivityAdmin" />
+        <activity android:name="Admin.ImagesforAdmin" />
+        <activity android:name="Admin.images" />
+        <activity android:name="Admin.questions1" />
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

@@ -6,27 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/experimental_white_background"
-    tools:context=".fragPuzzels">
+    tools:context="Admin.MainActivityAdmin">
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btnAddPic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/button_blue_alt"
         android:fontFamily="@font/m"
-        android:text="Select"
+        android:text="Select Picture"
         android:textAllCaps="false"
         android:textColor="@color/MainGrey"
-        android:textSize="24sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/txtTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,7 +34,7 @@
         android:background="@drawable/generic_edit"
         android:fontFamily="@font/montserrat_alternates"
         android:hint="Enter title"
-        android:textColor="@color/MainWhite"
+        android:textColor="@color/MainGrey"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,28 +42,88 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
-        android:id="@+id/button21"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/button_yellow_main"
-        android:fontFamily="@font/m"
-        android:text="Upload"
-        android:textAllCaps="false"
-        android:textColor="@color/MainGrey"
-        android:textSize="24sp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textView1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        app:layout_constraintTop_toTopOf="@+id/guideline7">
+
+        <Button
+            android:id="@+id/btnUploadPicture"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/button_yellow_main"
+            android:fontFamily="@font/m"
+            android:text="Upload Flashcard"
+            android:textAllCaps="false"
+            android:textColor="@color/MainGrey"
+            android:textSize="15sp"
+             />
+
+        <Button
+            android:id="@+id/btnUploadPuzzle"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/button_yellow_main"
+            android:fontFamily="@font/m"
+            android:text="Upload Puzzle"
+            android:textAllCaps="false"
+            android:textColor="@color/MainGrey"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="7dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/imgPicture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline9">
+
+        <CheckBox
+            android:id="@+id/chkEnglish"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/generic_edit"
+            android:fontFamily="@font/montserrat_alternates_bold"
+            android:text="English"
+            android:textColor="@color/MainGrey"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="246dp" />
+
+        <CheckBox
+            android:id="@+id/chkAfrikaans"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:fontFamily="@font/montserrat_alternates_bold"
+            android:text="Afrikaans"
+            android:background="@drawable/generic_edit"
+            android:textColor="@color/MainGrey"
+            tools:layout_editor_absoluteX="107dp"
+            tools:layout_editor_absoluteY="246dp" />
+    </LinearLayout>
 
     <ImageView
-        android:id="@+id/image_view1"
+        android:id="@+id/imgPicture"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -71,33 +131,71 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:foreground="@drawable/imageframe"
+        android:background="@drawable/yellow_button_dark"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
+    <Spinner
+        android:id="@+id/spnCategory"
+        style="@style/yellowButton"
+        android:layout_width="186dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/yellow_button_dark"
+        android:fontFamily="@font/m"
+        android:spinnerMode="dropdown"
+        android:text="Level 1"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/progsUpload"
+        app:layout_constraintEnd_toStartOf="@+id/spnLevelList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgPicture" />
+
+    <Spinner
+        android:id="@+id/spnLevelList"
+        style="@style/yellowButton"
+        android:layout_width="186dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/yellow_button_dark"
+        android:fontFamily="@font/m"
+        android:spinnerMode="dropdown"
+        android:text="Level 1"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/progsUpload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spnCategory"
+        app:layout_constraintTop_toBottomOf="@+id/imgPicture" />
+
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="81dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/montserrat_alternates_bold"
         android:text="Show all images"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button21"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
     <ProgressBar
-        android:id="@+id/progress_bar1"
+        android:id="@+id/progsUpload"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"

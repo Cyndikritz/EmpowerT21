@@ -26,5 +26,43 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinners" />
+        app:layout_constraintTop_toBottomOf="@+id/spinners"
+        android:background="@drawable/experimental_background">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_alternates_bold"
+            android:text="Admin Home Page"
+            android:textAlignment="center"
+            android:textColor="@color/MainGrey"
+            android:textSize="70dp"
+            android:layout_marginTop="220dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_alternates_bold"
+            android:text="Select from the menu above!"
+            android:textAlignment="center"
+            android:textColor="@color/MainGrey"
+            android:textSize="24dp"
+            android:layout_marginTop="500dp"/>
+
+        <TextView
+            android:id="@+id/btnLogout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="570dp"
+            android:background="@drawable/blue_button"
+            android:fontFamily="@font/montserrat_alternates_bold"
+            android:padding="10dp"
+            android:text="Logout"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="20dp" />
+
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -80,6 +81,13 @@ public class Register extends AppCompatActivity {
                                             uploadID = myRef.push().getKey();
                                             User newUser = new User(age, email, 1, 0, name, parentN+" "+parentS, surname, username, uploadID);
                                             myRef.child(uploadID).setValue(newUser);
+
+                                            SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = userDetails.edit();
+                                            editor.putString("username", username);
+                                            editor.putInt("level", 1);
+                                            editor.putInt("XP", 0);
+                                            editor.apply();
 
                                             Intent intent = new Intent(Register.this, Dashboard.class);
                                             intent.putExtra("child name", username);

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -38,6 +39,8 @@ import java.util.ListIterator;
 import java.util.Map;
 
 import Admin.MainActivityAdmin;
+
+import static android.R.layout.simple_spinner_dropdown_item;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -139,13 +142,26 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        super.onStart();
+
         SharedPreferences preferences = getSharedPreferences("remember", MODE_PRIVATE);
         String start = preferences.getString("remember", "");
-        if(start.equals("true") && (mAuth.getCurrentUser() != null)){
-
-            Intent intent = new Intent(MainActivity.this, Dashboard.class);
-            startActivity(intent);
+        if(mAuth.getCurrentUser() != null){
+            if(start.equals("true")){
+                if(mAuth.getCurrentUser().getEmail().equalsIgnoreCase("18000762@vcconnect.co.za")){
+                    Intent intent = new Intent(MainActivity.this, MainActivityAdmin.class);
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                    startActivity(intent);
+                }
+            }
         }
+
+        super.onStart();
+    }
+
+    @Override
+    public void onBackPressed(){
+
     }
 }

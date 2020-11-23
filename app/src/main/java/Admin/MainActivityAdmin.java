@@ -1,14 +1,19 @@
 package Admin;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.will.downsyndromeui.MainActivity;
 import com.will.downsyndromeui.R;
 
 
@@ -18,11 +23,16 @@ public class MainActivityAdmin extends AppCompatActivity implements AdapterView.
     BlankFragment blankFragment;
     fragPuzzels FragPuzzels;
     testQuestionFrag TestQuestionFrag;
+    TextView btnLogout;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_admin);
+        mAuth = FirebaseAuth.getInstance();
         Spinner spinner = (Spinner) findViewById(R.id.spinners);
+        btnLogout = findViewById(R.id.btnLogout);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.holder_array, R.layout.action_item_list);
@@ -31,7 +41,25 @@ public class MainActivityAdmin extends AppCompatActivity implements AdapterView.
         spinner.setOnItemSelectedListener(this);
         blankFragment= new BlankFragment();
 
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                SharedPreferences preferences = getSharedPreferences("remember", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString("remember", "false");
+                editor.apply();
 
+                SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
+                SharedPreferences.Editor editor2 = userDetails.edit();
+                editor.putString("username", "");
+                editor.putInt("level", 1);
+                editor.putInt("XP", 0);
+                editor.apply();
+                Intent intent = new Intent(MainActivityAdmin.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -75,5 +103,11 @@ public class MainActivityAdmin extends AppCompatActivity implements AdapterView.
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    @Override
+    public void onBackPressed(){
+
+    }
+
 }
 
