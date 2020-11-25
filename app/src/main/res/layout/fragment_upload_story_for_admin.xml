@@ -6,40 +6,97 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/experimental_white_background"
-    tools:context=".UploadStoryForAdmin">
+    tools:context="Admin.MainActivityAdmin">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/btnBackD"
+        android:layout_width="102dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="26dp"
         android:background="@drawable/button_blue_alt"
         android:fontFamily="@font/m"
-        android:text="Select"
+        android:text="Select Picture"
         android:textAllCaps="false"
         android:textColor="@color/MainGrey"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/imgSelected"
+        app:layout_constraintEnd_toStartOf="@+id/txtDescription"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="224dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/generic_edit"
         android:fontFamily="@font/montserrat_alternates"
-        android:hint="Enter title"
+        android:hint="Enter story title"
+        android:scrollbars="vertical"
         android:textColor="@color/MainGrey"
-        android:textSize="24sp"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/chkEnglish"
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/generic_edit"
+        android:fontFamily="@font/montserrat_alternates_bold"
+        android:text="English"
+        android:textColor="@color/MainGrey"
+        app:layout_constraintBottom_toTopOf="@+id/chkAfrikaans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/chkAfrikaans"
+        android:layout_width="130dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/generic_edit"
+        android:fontFamily="@font/montserrat_alternates_bold"
+        android:text="Afrikaans"
+        android:textColor="@color/MainGrey"
+        app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/chkEnglish" />
+
+    <EditText
+        android:id="@+id/txtDescription"
+        android:layout_width="252dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/generic_edit"
+        android:fontFamily="@font/montserrat_alternates"
+        android:hint="Enter picture decsription"
+        android:scrollbars="vertical"
+        android:textColor="@color/MainGrey"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/imgSelected"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnBackD"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <Button
         android:id="@+id/button2"
@@ -60,20 +117,30 @@
         app:layout_constraintStart_toEndOf="@+id/list"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
+    <ImageView
+        android:id="@+id/imgSelected"
+        android:layout_width="377dp"
+        android:layout_height="325dp"
+        android:background="@drawable/better_yellow"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.514" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/image_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="371dp"
+        android:layout_height="419dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/generic_edit"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/better_yellow"
+        app:layout_constraintBottom_toTopOf="@+id/progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"

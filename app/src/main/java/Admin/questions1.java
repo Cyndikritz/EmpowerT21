@@ -1,6 +1,9 @@
 package Admin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,8 @@ public class questions1 extends AppCompatActivity implements QuestionAdpter.OnIt
     private ValueEventListener mDBListener;
     String TAG=" plz work";
     private List<TestClass> mUploads;
+    private Button btnBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,7 @@ public class questions1 extends AppCompatActivity implements QuestionAdpter.OnIt
         mAdapter.setOnItemClickListener(questions1.this);
         mRecyclerView.setAdapter(mAdapter);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference("sentences");
+
         mDBListener=mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

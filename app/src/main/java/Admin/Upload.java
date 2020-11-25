@@ -1,5 +1,9 @@
 package Admin;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Upload {
     private String mName;
     private String mImageUrl;
@@ -7,6 +11,7 @@ public class Upload {
     private String mLanguage;
     private String mkey;
     private String mPublisher;
+    private List<Story> mImageList;
 
     public Upload(){
 
@@ -19,6 +24,16 @@ public class Upload {
         mImageUrl=imageUrl;
         mkey=key;
         mLevel = level;
+        mLanguage = language;
+    }
+
+    public Upload(String name , List<Story> imageList, String language, String key){
+        if (name.trim().equals("")){
+            name = "No Name";
+        }
+        mName=name;
+        mImageList = imageList;
+        mkey=key;
         mLanguage = language;
     }
 
@@ -92,5 +107,13 @@ public class Upload {
 
     public void setmPublisher(String mPublisher) {
         this.mPublisher = mPublisher;
+    }
+
+    public List<Story> getmImageList() {
+        return mImageList;
+    }
+
+    public void setmImageList(List<Story> mImageList) {
+        this.mImageList = mImageList;
     }
 }

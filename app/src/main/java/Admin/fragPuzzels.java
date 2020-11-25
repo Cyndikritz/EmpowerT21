@@ -10,9 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,13 +91,25 @@ public class fragPuzzels extends Fragment {
         adapter2.setDropDownViewResource(R.layout.action_item_list_small);
         mLevel.setAdapter(adapter2);
 
-        if(mEnglish.isChecked()){
-            language = "English";
-            mAfrikaans.setChecked(false);
-        }else{
-            language = "Afrikaans";
-            mEnglish.setChecked(false);
-        }
+        mEnglish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mEnglish.isChecked()){
+                    language = "English";
+                    mAfrikaans.setChecked(false);
+                }
+            }
+        });
+
+        mAfrikaans.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mAfrikaans.isChecked()){
+                    language = "Afrikaans";
+                    mEnglish.setChecked(false);
+                }
+            }
+        });
 
         mCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -173,10 +187,6 @@ public class fragPuzzels extends Fragment {
                     }else
                         {
                             uploadfile();
-                            mImageView.setImageResource(android.R.color.transparent);
-                            mEditTextFilename.setText("");
-                            mImageUri=null;
-                            checker=false;
                         }
                     }
                 }
@@ -196,10 +206,6 @@ public class fragPuzzels extends Fragment {
                     }else
                     {
                         uploadfile();
-                        mImageView.setImageResource(android.R.color.transparent);
-                        mEditTextFilename.setText("");
-                        mImageUri=null;
-                        checker=false;
                     }
                 }
         });
@@ -213,7 +219,7 @@ public class fragPuzzels extends Fragment {
     }
 
     private void openImageView() {
-        Intent intent = new Intent(getActivity(), images.class);
+        Intent intent = new Intent(getActivity(), ImagesforAdmin.class);
         startActivity(intent);
 
     }
@@ -265,6 +271,10 @@ public class fragPuzzels extends Fragment {
                             mCategory.setSelection(0);
                             mEnglish.setChecked(false);
                             mAfrikaans.setChecked(false);
+                            mImageView.setImageResource(android.R.color.transparent);
+                            mEditTextFilename.setText("");
+                            mImageUri=null;
+                            checker=false;
                         }
                     });
 

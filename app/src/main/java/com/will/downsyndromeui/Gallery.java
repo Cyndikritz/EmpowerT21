@@ -152,11 +152,6 @@ public class Gallery extends AppCompatActivity implements ImageAdpter.OnItemClic
 
     }
 
-    @Override
-    public void onWhatEverClick(int position) {
-
-    }
-
     //-------------------------Attribution--------------------------
     //The following code was derived from YouTube
     //Author: Coding In Flow

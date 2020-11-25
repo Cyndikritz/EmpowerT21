@@ -20,10 +20,13 @@
         <activity android:name=".FlashCard" />
         <activity android:name=".Dashboard" />
         <activity android:name=".Register" />
-        <activity android:name="Admin.MainActivityAdmin" />
+        <activity android:name="Admin.MainActivityAdmin" android:windowSoftInputMode="adjustPan">
+        </activity>
         <activity android:name="Admin.ImagesforAdmin" />
         <activity android:name="Admin.images" />
         <activity android:name="Admin.questions1" />
+        <activity android:name="Puzzle.PuzzleMain"/>
+        <activity android:name="Puzzle.puzzleActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -88,6 +88,12 @@
         <item>Level 4</item>
         <item>Level 5</item>
     </string-array>
+
+    <string-array name="col">
+        <item>2X2</item>
+        <item>3X3</item>
+        <item>4X4</item>
+    </string-array>
     <string name="title_activity_gallery">Gallery</string>
     <!--
     This string is used for square devices and overridden by hello_world in

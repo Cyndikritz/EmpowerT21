@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -60,13 +61,25 @@ public class testQuestionFrag extends Fragment {
         adapter.setDropDownViewResource(R.layout.action_item_list_small);
         mLevel.setAdapter(adapter);
 
-        if(mEnglish.isChecked()){
-            language = "English";
-            mAfrikaans.setChecked(false);
-        }else{
-            language = "Afrikaans";
-            mEnglish.setChecked(false);
-        }
+        mEnglish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mEnglish.isChecked()){
+                    language = "English";
+                    mAfrikaans.setChecked(false);
+                }
+            }
+        });
+
+        mAfrikaans.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mAfrikaans.isChecked()){
+                    language = "Afrikaans";
+                    mEnglish.setChecked(false);
+                }
+            }
+        });
 
         mLevel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

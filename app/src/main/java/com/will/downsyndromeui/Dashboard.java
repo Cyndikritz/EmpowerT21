@@ -31,6 +31,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import Puzzle.PuzzleMain;
+
 import static android.R.layout.simple_spinner_dropdown_item;
 
 public class Dashboard extends AppCompatActivity {
@@ -49,6 +51,7 @@ public class Dashboard extends AppCompatActivity {
     DatabaseReference myRef = database.getReference("users");
     List<String> levels = new ArrayList<String>();
     ArrayAdapter<String> arrayAdapter;
+    PullPuzzles loadPuzzles = new PullPuzzles();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,9 @@ public class Dashboard extends AppCompatActivity {
         sentences = findViewById(R.id.imgSentences);
         numbers = findViewById(R.id.imgNumbers);
         pronouns = findViewById(R.id.imgPronouns);
+        puzzle = findViewById(R.id.imgPuzzles);
+
+        loadPuzzles.FetchPuzzles();
 
         SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
         username = userDetails.getString("username", "");
@@ -169,6 +175,14 @@ public class Dashboard extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Dashboard.this, FlashCard.class);
                 intent.putExtra("Origin", "Pronouns");
+                startActivity(intent);
+            }
+        });
+
+        puzzle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Dashboard.this, PuzzleMain.class);
                 startActivity(intent);
             }
         });

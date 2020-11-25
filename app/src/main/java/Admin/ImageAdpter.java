@@ -48,9 +48,7 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
     public void onBindViewHolder(@NonNull ImageHolder holder, int position) {
         Upload uploadCurrent= mUploads.get(position);
 
-        if(!mContext.getClass().equals(Gallery.class)){
-            holder.textViewName.setText(uploadCurrent.getName());
-        }
+        holder.textViewName.setText(uploadCurrent.getName());
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.ic_launcher_background); //Sets a placeholder image until the image has loaded
         //Using Glide to load the images into the cards
@@ -71,17 +69,14 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
         public ImageHolder(@NonNull View itemView) {
             super(itemView);
 
-            if(!mContext.getClass().equals(Gallery.class)){
                 textViewName= itemView.findViewById(R.id.text);
-                imageView= itemView.findViewById(R.id.workpls);
-                itemView.setOnClickListener(this);
-                itemView.setOnCreateContextMenuListener(this);
-            }else{
+            if(mContext.getClass().equals(Gallery.class)){
                 imageView= itemView.findViewById(R.id.imgView);
+            }else{
+                imageView= itemView.findViewById(R.id.workpls);
+            }
                 itemView.setOnClickListener(this);
                 itemView.setOnCreateContextMenuListener(this);
-            }
-
         }
 
         @Override
@@ -97,9 +92,7 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.setHeaderTitle("Select an Action");
-            MenuItem doWhatever = menu.add(Menu.NONE,1,1,"View");
-            MenuItem delete = menu.add(Menu.NONE,2,2,"Delete");
-            doWhatever.setOnMenuItemClickListener(this);
+            MenuItem delete = menu.add(Menu.NONE,1,1,"Delete");
             delete.setOnMenuItemClickListener(this);
         }
 
@@ -110,9 +103,6 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
                 if(position!= RecyclerView.NO_POSITION){
                 switch (item.getItemId()){
                     case 1:
-                        mListener.onWhatEverClick(position);
-                        return true;
-                    case 2:
                         mListener.onDeleteClick(position);
                         return true;
                 }
@@ -123,7 +113,6 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageHolder> {
 
     public interface OnItemClickListener{
             void onItemClick(int position);
-            void onWhatEverClick(int position);
             void onDeleteClick(int position);
     }
     public void setOnItemClickListener(OnItemClickListener listener){

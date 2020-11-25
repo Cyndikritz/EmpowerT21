@@ -43,7 +43,7 @@ public class images extends AppCompatActivity implements ImageAdpter.OnItemClick
         mAdapter.setOnItemClickListener(images.this);
         mRecyclerView.setAdapter(mAdapter);
         mStorage=FirebaseStorage.getInstance();
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploadsForPuzzel");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("stories");
         mDBListener=mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,12 +76,6 @@ public class images extends AppCompatActivity implements ImageAdpter.OnItemClick
     }
 
     @Override
-    public void onWhatEverClick(int position) {
-        Toast.makeText(this, "yeeet", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
     public void onDeleteClick(int position) {
         Upload selectedItem=mUploads.get(position);
         final String selectedkEY= selectedItem.getMkey();
@@ -90,7 +84,7 @@ public class images extends AppCompatActivity implements ImageAdpter.OnItemClick
             @Override
             public void onSuccess(Void aVoid) {
            mDatabaseRef.child(selectedkEY).removeValue();
-                Toast.makeText(images.this, "image deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(images.this, "Image deleted", Toast.LENGTH_SHORT).show();
             }
         });
     }
