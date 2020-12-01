@@ -32,22 +32,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
             android:fontFamily="@font/montserrat_alternates_bold"
-            android:text="Admin Home Page"
+            android:text="@string/adminTitle"
             android:textAlignment="center"
             android:textColor="@color/MainGrey"
-            android:textSize="70dp"
-            android:layout_marginTop="220dp"/>
+            android:textSize="70dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="500dp"
             android:fontFamily="@font/montserrat_alternates_bold"
-            android:text="Select from the menu above!"
+            android:text="@string/slcmenuAdmin"
             android:textAlignment="center"
             android:textColor="@color/MainGrey"
-            android:textSize="24dp"
-            android:layout_marginTop="500dp"/>
+            android:textSize="24dp" />
 
         <TextView
             android:id="@+id/btnLogout"
@@ -58,7 +58,7 @@
             android:background="@drawable/blue_button"
             android:fontFamily="@font/montserrat_alternates_bold"
             android:padding="10dp"
-            android:text="Logout"
+            android:text="@string/LogOut"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="20dp" />

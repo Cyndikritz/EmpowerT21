@@ -39,6 +39,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toBottomOf="@+id/RemeberPass" />
+
     <Button
         android:id="@+id/Login"
         style="@style/yellowButton"
@@ -46,13 +47,13 @@
         android:layout_height="42dp"
 
         android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="40dp"
         android:background="@drawable/yellow_button_dark"
         android:elevation="20dp"
         android:fontFamily="@font/montserrat_alternates"
-        android:text="Login"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textSize="20sp"
         android:textStyle="bold"

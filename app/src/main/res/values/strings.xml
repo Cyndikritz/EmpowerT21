@@ -2,38 +2,74 @@
     <string name="app_name" translatable="false">EmpowerT21</string>
 
     <!--General Usage -->
+    <!--General Usage -->
     <string name="bckBtn">Back</string>
+    <string name="next" >Next</string>
 
     <!--lOGIN SCREEN -->
-    <string name="login" translatable="false">Login</string>
-    <string name="register" translatable="false">Register</string>
-    <string name="username" translatable="false">Email</string>
-    <string name="password" translatable="false">Password</string>
-    <string name="remeberme" translatable="false">Remember me</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remeberme">Remeber me</string>
 
+    <!-- Admin Home Page -->
+
+    <string name ="adminTitle">Admin Home Page</string>
+    <string name ="slcmenuAdmin">Select from the menu above</string>
+    <!-- Sentences Page -->
+
+    <string name="unjumbleSentce">Un-jumble the sentence below</string>
+
+    <!--upload Image -->
+    <string name="SctImage">Select Image</string>
+    <string name="uploadTitle">Upload Picture</string>
+
+
+    <!--sentence Creation -->
+    <string name="senCreate">Enter a sentence and assign it to a level</string>
+    <string name="addSen">Add Sentence</string>
+    <string name="viewSen">View Sentences</string>
+    <string name="entSen">Enter a sentence</string>
+
+    <!-- Puzzle Screen -->
+
+    <string name ="puzzleTitle">Name of puzzle</string>
+    <string name="puzzleType">Type of Puzzle: </string>
+
+
+    <string name="showallimg">Show all Images</string>
+    <string name="upPuzzle">UploadPuzzle</string>
+    <string name="upFlashCard">Upload Flashcard</string>
+
+    <!-- Admin upload Sory  -->
+
+    <string name="uplo">Upload</string>
+    <string name="addtList">Add to list</string>
+    <string name="sctPicture">Select Picture</string>
 
     <!-- REGISTER SCREEN -->
-    <string name="Title" translatable="false">Please fill in your childs information</string>
-    <string name="name" translatable="false"> Name</string>
-    <string name="surname" translatable="false">Surname</string>
-    <string name="usernameRegister" translatable="false">Username</string>
-    <string name="age" translatable="false">Age</string>
-    <string name="Password" translatable="false">Password</string>
-    <string name="rePassword" translatable="false">Re-enter password</string>
-    <string name="titleParent" translatable="false">Please fill in your information</string>
-    <string name="email" translatable="false">Email</string>
-    <string name="nameParent" translatable="false">Name</string>
-    <string name="surnameParent" translatable="false">Surname</string>
-    <string name="cancelTitle" translatable="false">Cancel</string>
-    <string name="submitTitle" translatable="false">Submit</string>
+    <string name="Title">Please fill in your childs information</string>
+    <string name="name"> Name</string>
+    <string name="surname">Surname</string>
+    <string name="usernameRegister">Username</string>
+    <string name="age">Age</string>
+    <string name="Password">Password</string>
+    <string name="rePassword">Re - enter password</string>
+    <string name="titleParent">Please fill in your information</string>
+    <string name="email">Email</string>
+    <string name="nameParent">Name</string>
+    <string name="surnameParent">Surname</string>
+    <string name="cancelTitle">Cancel</string>
+    <string name="submitTitle">Submit</string>
 
     <!-- DASHBOARD SCREEN -->
 
-    <string name="titleLearn" translatable="false">What would you like to learn today?</string>
-    <string name="titleTests" translatable="false">Take this test once you have filled up your XP bar!</string>
-    <string name="galleryTitle" translatable="false">Open family album</string>
-    <string name="LogOut" translatable="false">Settings</string>
-    <string name="Settings" translatable="false">Log Out</string>
+    <string name="titleLearn">What would you like to learn today</string>
+    <string name="titleTests">Here are some tests that you can take</string>
+    <string name="galleryTitle">Open family album</string>
+    <string name="LogOut">Log Out</string>
+    <string name="Settings">Settings</string>
 
     <!-- Image caption values -->
 
@@ -49,21 +85,29 @@
     <string name="Puzzless">Puzzles</string>
 
 
+    <!-- Additional Values -->
+
+
+    <string name="ClickMe" > Click Me ! </string>
+    <string name="keepPrac">Keep Practicing </string>
+
+
+
     <!--Settings screen -->
 
-    <string name="settingdtitile"> Settings</string>
+    <string name ="settingdtitile" > Settings</string>
     <string name="settingchangeparentsemail">Change Parents Email</string>
-    <string name="settingchnageusername">Change your Username</string>
-    <string name="settingpassword">Change your password</string>
-    <string name="settingchangeprefereclanguage">Change your prefered language</string>
-    <string name="settingstatistics">See Statistics</string>
-    <string name="changeFont">Change Font - size</string>
-    <string name="settingRepeort">Report a bug or post a complaint</string>
-    <string name="settingPost">Post</string>
-    <string name="settingadd" translatable="false">+</string>
-    <string name="settingminus" translatable="false">-</string>
+    <string name ="settingchnageusername">Change your Username</string>
+    <string name ="settingpassword">Change your password</string>
+    <string name ="settingchangeprefereclanguage">Change your prefered language</string>
+    <string name ="settingstatistics">See Statistics</string>
+    <string name ="changeFont">Change Font - size</string>
+    <string name ="settingRepeort">Report a bug or post a complaint</string>
+    <string name ="settingPost">Post</string>
+    <string name ="settingadd" translatable="false">+</string>
+    <string name ="settingminus" translatable="false">-</string>
     <!-- Change User Dialog-->
-    <string name="pickalang">Pick a language</string>
+    <string name ="pickalang" >Pick a language</string>
 
     <string-array name="holder_array">
         <item>Please Select an Action</item>

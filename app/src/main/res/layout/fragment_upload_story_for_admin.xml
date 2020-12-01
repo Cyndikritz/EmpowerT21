@@ -18,7 +18,7 @@
         android:layout_marginBottom="26dp"
         android:background="@drawable/button_blue_alt"
         android:fontFamily="@font/m"
-        android:text="Select Picture"
+        android:text="@string/sctPicture"
         android:textAllCaps="false"
         android:textColor="@color/MainGrey"
         android:textSize="15sp"
@@ -107,7 +107,6 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_yellow_main"
         android:fontFamily="@font/m"
-        android:text="Upload"
         android:textAllCaps="false"
         android:textColor="@color/MainGrey"
         android:textSize="20sp"
@@ -115,7 +114,8 @@
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/list"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        tools:text="@string/uplo" />
 
     <ImageView
         android:id="@+id/imgSelected"
@@ -148,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/montserrat_alternates_bold"
-        android:text="Show all images"
+        android:text="@string/showallimg"
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -177,7 +177,7 @@
         android:layout_marginEnd="16dp"
         android:background="@drawable/button_blue_alt"
         android:fontFamily="@font/m"
-        android:text="Add to list"
+        android:text="@string/addtList"
         android:textAllCaps="false"
         android:textColor="@color/MainGrey"
         android:textSize="18sp"

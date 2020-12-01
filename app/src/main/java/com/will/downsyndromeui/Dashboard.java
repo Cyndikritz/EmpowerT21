@@ -8,7 +8,10 @@ import androidx.core.app.ActivityCompat;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,6 +33,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Locale;
 
 import Puzzle.PuzzleMain;
 
@@ -52,6 +56,40 @@ public class Dashboard extends AppCompatActivity {
     List<String> levels = new ArrayList<String>();
     ArrayAdapter<String> arrayAdapter;
     PullPuzzles loadPuzzles = new PullPuzzles();
+
+    public static final String CODE = "en";
+    public static final String SHARED_CODE = "sharedcode";
+    private String codeval ;
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        LoadData();
+        setAppLocale(codeval);
+        recreate();
+    }
+
+    public void LoadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_CODE , MODE_PRIVATE);
+        codeval = sharedPreferences.getString(CODE , "en");
+
+
+
+    }
+
+
+    private void setAppLocale(String LoCoded){
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration config = res.getConfiguration();
+
+        config.setLocale(new Locale(LoCoded.toLowerCase()));
+
+        res.updateConfiguration(config,dm);
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
