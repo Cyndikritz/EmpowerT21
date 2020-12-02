@@ -42,7 +42,7 @@ public class usernameDialog extends AppCompatDialogFragment {
         LayoutInflater inflater =  getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_change_username , null);
 
-        edtUsername = view.findViewById(R.id.edtNewUsername);
+        edtUsername = view.findViewById(R.id.edtOldPass);
 
 
         builder.setView(view).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

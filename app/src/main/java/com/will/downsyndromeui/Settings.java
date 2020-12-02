@@ -1,6 +1,7 @@
 package com.will.downsyndromeui;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,24 +13,39 @@ import android.util.DisplayMetrics;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
-public class Settings extends AppCompatActivity implements LanguageDialog.LabguageDialogListener,usernameDialog.usernameListner, emailDialog.emailListner {
+public class Settings extends AppCompatActivity implements LanguageDialog.LabguageDialogListener,usernameDialog.usernameListner, emailDialog.emailListner , passwordDialog.passwordInterface {
 
 
     Button chnageLanguagePreference ;
     public static final String CODE = "en";
     public static final String SHARED_CODE = "sharedcode";
+    public static final String SCALE = "fontScale";
     private String codeval ;
 
     Button ChangeUser ;
     Button ChangePassword ;
-    Button ChangeEmail;
+    Button ChangeEmail,  increaseAmt , decreaseAmt;
+    TextView edtFontDisp ;
+
+
+
+
 
 
 
@@ -44,6 +60,48 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
         ChangeEmail = (Button) findViewById((R.id.btnChangeEmail));
         ChangeUser  = (Button) findViewById((R.id.btnChangeUsername));
         ChangePassword = (Button) findViewById(R.id.btnChangePassword) ;
+        increaseAmt = (Button) findViewById(R.id.btnInc);
+        decreaseAmt = (Button) findViewById(R.id.btnDec);
+        edtFontDisp = (TextView) findViewById(R.id.tvTxtSize);
+
+
+        loadSCaleData();
+
+        increaseAmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (scaleData + 0.1f >= 1.6f){
+
+                }else{
+                    scaleData = scaleData + 0.1f ;
+                    updateScale(scaleData);
+                    saveScale(scaleData);
+                    edtFontDisp.setText(scaleData + "");
+
+                }
+            }
+        });
+
+
+        decreaseAmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ((scaleData - 0.1f) <= 0f){
+
+                }else{
+                    scaleData = scaleData - 0.1f ;
+                    updateScale(scaleData);
+                    saveScale(scaleData);
+                    edtFontDisp.setText(scaleData + "");
+
+                }
+            }
+        });
+
+
+
+
+        edtFontDisp.setText(scaleData + "");
 
         ChangeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +109,12 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
                 openEmailDialog();
             }
         });
-
+        ChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPasswordDialog();
+            }
+        });
 
         ChangeUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,12 +149,53 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
 
 
     }
-    private void openPasswordDialog(){}
+    private void openPasswordDialog(){
+
+
+        passwordDialog aPassword = new passwordDialog() ;
+        aPassword.show(getSupportFragmentManager(),"username Dialog");
+
+
+    }
 
     private void openDialog() {
 
         LanguageDialog lanDia = new LanguageDialog();
         lanDia.show(getSupportFragmentManager(),"Language Dialog"); 
+
+    }
+
+
+    private float scaleData ;
+
+    private void loadSCaleData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_CODE , MODE_PRIVATE);
+        scaleData = sharedPreferences.getFloat(SCALE , 1.0f);
+        updateScale(scaleData);
+
+    }
+    public void saveScale(float ic){
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_CODE , MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat(SCALE , ic );
+
+
+        editor.apply();
+
+
+
+    }
+
+    private void updateScale(float inc){
+
+
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration config = res.getConfiguration();
+        config.fontScale = inc ;
+
+        res.updateConfiguration(config,dm);
 
     }
 
@@ -163,25 +267,73 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
 
     }
 
+    private String uNames  ;
+
     @Override
     public void ApplyUsername(String uName) {
+        uNames = uName ;
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref =  database.getReference("users");
 
 
-        FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser().getUid()).child("username").setValue(uName);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
-        SharedPreferences.Editor editor = userDetails.edit();
-        editor.putString("username", uName);
-        editor.apply();
+                for(DataSnapshot child : snapshot.getChildren()){
+
+                    User pulledUser =  child.getValue(User.class);
+                    if(pulledUser.getEmail().equalsIgnoreCase(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+
+                        FirebaseDatabase.getInstance().getReference().child("users").child(pulledUser.getKey()).child("username").setValue(uNames);
 
 
-        Toast.makeText(Settings.this , "Success" , Toast.LENGTH_SHORT).show();
+                        SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = userDetails.edit();
+                        editor.putString("username", uNames);
+                        editor.apply();
+
+                        Toast.makeText(Settings.this , "Success" , Toast.LENGTH_SHORT).show();
+
+
+
+                    }
+
+
+
+
+                }
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+       // FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser().getUid()).child("username").setValue(uName);
+
+
+
+
+
 
 
 
     }
+
+    FirebaseDatabase fdb = FirebaseDatabase.getInstance();
+    DatabaseReference myRef  =  fdb.getReference("users");
+    String previousEmial ,currentEmail ;
 
     @Override
     public void ApplyEmail(String email) {
@@ -191,16 +343,86 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
 
 
         }else{
+            currentEmail =  email ;
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            previousEmial = user.getEmail();
+            user.updateEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(Settings.this, "You have changed your password", Toast.LENGTH_SHORT).show();
 
-            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                            myRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                    for(DataSnapshot child : snapshot.getChildren()){
+                                        User a = child.getValue(User.class);
+
+                                        if (a.getEmail().equalsIgnoreCase((previousEmial))){
+
+   FirebaseDatabase.getInstance().getReference().child("users").child(a.getKey()).child("email").setValue(currentEmail);
 
 
-            FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser().getUid()).child("email").setValue(email);
+
+                                        }
+
+
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+
+
+
+
+                        }
+                }
+            });
+
+
 
 
 
         }
 
+
+
+    }
+
+    @Override
+    public void ApplyUsername(String oldPass, String newPassword) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        if(oldPass.equals(newPassword)){
+            user.updatePassword(oldPass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+
+                            Toast.makeText(Settings.this
+                            ,"You have succesfully changed your password",Toast.LENGTH_SHORT).show();
+
+                        }
+                }
+            });
+
+
+
+        }else{
+
+            Toast.makeText(Settings.this
+                    ,"Passwords do not match",Toast.LENGTH_SHORT).show();
+
+        }
 
 
     }

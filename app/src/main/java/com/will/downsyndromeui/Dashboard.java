@@ -58,6 +58,7 @@ public class Dashboard extends AppCompatActivity {
     PullPuzzles loadPuzzles = new PullPuzzles();
 
     public static final String CODE = "en";
+    public static final String SCALE = "fontScale";
     public static final String SHARED_CODE = "sharedcode";
     private String codeval ;
 
@@ -66,7 +67,10 @@ public class Dashboard extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         LoadData();
+        loadSCaleData();
+
         setAppLocale(codeval);
+
         recreate();
     }
 
@@ -91,6 +95,31 @@ public class Dashboard extends AppCompatActivity {
 
     }
 
+
+    private float scaleData ;
+
+    private void loadSCaleData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_CODE , MODE_PRIVATE);
+        scaleData = sharedPreferences.getFloat(SCALE , 1.0f);
+        updateScale(scaleData);
+
+    }
+
+
+    private void updateScale(float inc){
+
+
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration config = res.getConfiguration();
+        config.fontScale = inc ;
+
+        res.updateConfiguration(config,dm);
+
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +141,8 @@ public class Dashboard extends AppCompatActivity {
         puzzle = findViewById(R.id.imgPuzzles);
 
         loadPuzzles.FetchPuzzles();
+
+
 
         SharedPreferences userDetails = getSharedPreferences("user", MODE_PRIVATE);
         username = userDetails.getString("username", "");

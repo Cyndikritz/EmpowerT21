@@ -8,22 +8,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class emailDialog extends AppCompatDialogFragment {
+public class passwordDialog extends AppCompatDialogFragment {
 
-
-    private emailDialog.emailListner listner ;
+    private passwordDialog.passwordInterface listner ;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try{
-            listner = (emailDialog.emailListner) context ;
+            listner = (passwordDialog.passwordInterface) context ;
 
         }catch(ClassCastException e){
             throw new ClassCastException(context.toString() + "Must be implemented");
@@ -32,8 +30,8 @@ public class emailDialog extends AppCompatDialogFragment {
         }
     }
 
-    EditText edtUsername ;
-    TextView tvHeader , tvInstruction ;
+    EditText edtOldPass , edtPassword ;
+
 
     @NonNull
     @Override
@@ -41,16 +39,10 @@ public class emailDialog extends AppCompatDialogFragment {
         AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater =  getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.layout_change_username , null);
+        View view = inflater.inflate(R.layout.layout_change_password , null);
 
-        edtUsername = view.findViewById(R.id.edtOldPass);
-
-        tvHeader = view.findViewById(R.id.txtHeader);
-        tvInstruction = view.findViewById(R.id.txtInstruction);
-
-        tvHeader.setText("Email");
-        tvInstruction.setText("Enter your email");
-
+        edtOldPass = view.findViewById(R.id.edtOldPass);
+        edtPassword = view.findViewById(R.id.edtNewPass);
 
 
         builder.setView(view).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -63,9 +55,9 @@ public class emailDialog extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        String newUsername = edtUsername.getText().toString().trim();
-
-                        listner.ApplyEmail(newUsername);
+                        String newPass = edtPassword.getText().toString().trim();
+                        String oldPass = edtOldPass.getText().toString().trim();
+                        listner.ApplyUsername(newPass , oldPass);
                     }
                 });
 
@@ -74,11 +66,15 @@ public class emailDialog extends AppCompatDialogFragment {
         return builder.create();
     }
 
-    public interface emailListner{
+    public interface passwordInterface{
 
-        void ApplyEmail(String email) ;
+        void ApplyUsername(String oldPass , String newPassword) ;
 
     }
+
+
+
+
 
 
 }

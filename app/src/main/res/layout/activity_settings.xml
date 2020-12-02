@@ -233,7 +233,7 @@
             app:layout_constraintVertical_bias="0.47" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/btnInc"
             style="@style/yellowButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
             app:layout_constraintGuide_percent="0.21" />
 
         <Button
-            android:id="@+id/button9"
+            android:id="@+id/btnDec"
             style="@style/yellowButton"
             android:layout_width="0dp"
             android:layout_height="0dp"
