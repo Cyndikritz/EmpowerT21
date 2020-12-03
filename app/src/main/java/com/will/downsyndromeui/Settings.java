@@ -74,7 +74,7 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
             @Override
             public void onClick(View v) {
                 complaint  =  mutliLine.getText().toString();
-                  //FirebaseDatabase.getInstance().getReference("Complaints").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(complaint);
+                  FirebaseDatabase.getInstance().getReference("Complaints").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(complaint);
 
                 final Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("text/plain");
