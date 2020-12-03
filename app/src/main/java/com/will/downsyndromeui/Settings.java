@@ -39,16 +39,18 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
     private String codeval ;
 
     Button ChangeUser ;
-    Button ChangePassword ;
+    Button ChangePassword  , btnComplaint;
     Button ChangeEmail,  increaseAmt , decreaseAmt;
     TextView edtFontDisp ;
 
+    EditText  mutliLine ;
 
 
 
 
 
 
+    private String complaint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,23 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
         increaseAmt = (Button) findViewById(R.id.btnInc);
         decreaseAmt = (Button) findViewById(R.id.btnDec);
         edtFontDisp = (TextView) findViewById(R.id.tvTxtSize);
-
+        mutliLine = (EditText) findViewById(R.id.edtComplaint);
+       btnComplaint = (Button) findViewById(R.id.btnsettingpost);
 
         loadSCaleData();
+
+        btnComplaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                complaint  =  mutliLine.getText().toString();
+                  FirebaseDatabase.getInstance().getReference("Complaints").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(complaint);
+
+
+
+                Toast.makeText(Settings.this, complaint, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         increaseAmt.setOnClickListener(new View.OnClickListener() {
             @Override
