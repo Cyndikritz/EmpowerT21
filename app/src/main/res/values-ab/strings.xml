@@ -47,4 +47,21 @@
     <string name="bckBtn">Terug</string>
     <string name="title_activity_gallery">Gallery</string>
     <string name="hello_world">Hallo Square World</string>
+    <string name="adminTitle">Admin tuisblad</string>
+    <string name="slcmenuAdmin">Kies uit die menu hierbo</string>
+    <string name="unjumbleSentce">Herrangskik die sinne hieronder</string>
+    <string name="SctImage">Kies prent</string>
+    <string name="uploadTitle">Laai foto op</string>
+    <string name="senCreate">Voer \'n sin in en ken dit na \'n vlak toe</string>
+    <string name="addSen">Voeg \'n sin in</string>
+    <string name="viewSen">Kyk na \'n sin</string>
+    <string name="entSen">Voeg \'n sin in</string>
+    <string name="puzzleTitle">Naam van Legkaart</string>
+    <string name="puzzleType">Tipe legkaart</string>
+    <string name="showallimg">Vertoon alle beelde</string>
+    <string name="upPuzzle">Laai legkaart op</string>
+    <string name="upFlashCard">Laai flitskaart op</string>
+    <string name="uplo">Laai op</string>
+    <string name="addtList">Voeg by lys</string>
+    <string name="sctPicture">Kies \'n prent</string>
 </resources>
