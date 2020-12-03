@@ -74,11 +74,24 @@ public class Settings extends AppCompatActivity implements LanguageDialog.Labgua
             @Override
             public void onClick(View v) {
                 complaint  =  mutliLine.getText().toString();
-                  FirebaseDatabase.getInstance().getReference("Complaints").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(complaint);
+                  //FirebaseDatabase.getInstance().getReference("Complaints").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(complaint);
+
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL , new String[]{"shayur@easygames.co.za"});
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT , "Complaint  - " +FirebaseAuth.getInstance().getCurrentUser().getEmail()) ;
+                emailIntent.putExtra(Intent.EXTRA_TEXT , complaint);
+                emailIntent.setType("message/rfc822");
+                try {
+                    startActivity(Intent.createChooser(emailIntent , "Select a Email Client"));
+
+                }catch(android.content.ActivityNotFoundException ex){
+                    Toast.makeText(Settings.this, "No Email client found!!",
+                            Toast.LENGTH_SHORT).show();
+                }
 
 
 
-                Toast.makeText(Settings.this, complaint, Toast.LENGTH_SHORT).show();
             }
         });
 
